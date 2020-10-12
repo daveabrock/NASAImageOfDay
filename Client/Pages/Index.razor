@@ -1,0 +1,29 @@
+﻿@page "/"
+@inject HttpClient http
+
+@if (image != null)
+{
+    <div class="p-4">
+        <h1 class="text-6xl">@image.Title</h1>
+        <p class="text-2xl">@FormatDate(image.Date)</p>
+        <p>Copyright: @image.Copyright</p>
+    </div>
+
+    <div class="flex justify-center p-4">
+        <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
+    </div>
+}
+
+@code {
+    private Data.Image image;
+
+    private string FormatDate(DateTime date)
+    {
+        return date.ToLongDateString();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        image = await http.GetFromJsonAsync<Data.Image>("api/image");
+    }
+}
