@@ -34,7 +34,7 @@ Then, create a `local.settings.json` file in the API project with something like
 	"Values": {
 		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
 		"FUNCTIONS_WORKER_RUNTIME": "dotnet",
-		"ApiKey": "n3bgKvjQcDQGXwkxdL2YynmBlcoCNNjYnzkdu11W"
+		"ApiKey": "my-api-key"
 	}
 }
 ```
