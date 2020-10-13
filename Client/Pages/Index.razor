@@ -3,11 +3,14 @@
 
 @if (image != null)
 {
-    <div class="p-4">
-        <h1 class="text-6xl">@image.Title</h1>
-        <p class="text-2xl">@FormatDate(image.Date)</p>
+<div class="p-4">
+    <h1 class="text-6xl">@image.Title</h1>
+    <p class="text-2xl">@FormatDate(image.Date)</p>
+    @if (image.Copyright != null)
+    {
         <p>Copyright: @image.Copyright</p>
-    </div>
+    }
+</div>
 
     <div class="flex justify-center p-4">
         <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
