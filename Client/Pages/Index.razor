@@ -2,46 +2,45 @@
 @page "/"
 @inject HttpClient http
 
-@if (image != null)
-{
-    var title = $"From {GetYear(image.Date)}";
-    <Title Value="@title"></Title>
+    <Title Value="@GetPageTitle()"></Title>
+    @if (image != null)
+    {
+        <div class="p-4">
+            <h1 class="text-6xl">@image.Title</h1>
+            <p class="text-2xl">@FormatDate(image.Date)</p>
+            @if (image.Copyright != null)
+            {
+                <p>Copyright: @image.Copyright</p>
+            }
+        </div>
 
-    <div class="p-4">
-        <h1 class="text-6xl">@image.Title</h1>
-        <p class="text-2xl">@FormatDate(image.Date)</p>
-        @if (image.Copyright != null)
+        <div class="flex justify-center p-4">
+            <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
+        </div>
+    }
+
+    @code {
+        private Data.Image image;
+
+        private string FormatDate(DateTime date)
         {
-            <p>Copyright: @image.Copyright</p>
+            return date.ToLongDateString();
         }
-    </div>
 
-    <div class="flex justify-center p-4">
-        <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
-    </div>
-}
+        private int GetYear(DateTime date)
+        {
+            return date.Year;
+        }
 
-@code {
-    private Data.Image image;
+        protected override async Task OnInitializedAsync()
+        {
+            image = await http.GetFromJsonAsync<Data.Image>("api/image");
+            System.Threading.Thread.Sleep(2000);
+        }
 
-    private string FormatDate(DateTime date)
-    {
-        return date.ToLongDateString();
+        private string GetPageTitle()
+        {
+            return image is null ? "Blasting off..." : $"New! From {GetYear(image.Date)}!";
+        }
     }
-
-    private int GetYear(DateTime date)
-    {
-        return date.Year;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        image = await http.GetFromJsonAsync<Data.Image>("api/image");
-    }
-
-    private string GetPageTitle()
-    {
-        return image is null ? "Blasting off..." : "We got one!";
-    }
-}
 
