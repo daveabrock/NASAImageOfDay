@@ -6,33 +6,47 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using Newtonsoft.Json;
+using Microsoft.Azure.CosmosRepository;
+using System.Threading;
 
 namespace Api
 {
-    public static class ImageGet
+    public class ImageGet
     {
         private static readonly HttpClient httpClient = new HttpClient();
+        readonly IRepository<Image> _repository;
+
+        public ImageGet(IRepositoryFactory factory) => _repository = factory.RepositoryOf<Image>();
 
         [FunctionName("ImageGet")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image")] HttpRequest req,
-            ILogger log)
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image")] HttpRequest req, 
+            ILogger log, CancellationToken hostCancellationToken)
         {
-            log.LogInformation("Executing ImageOfDayGet.");
+            using CancellationTokenSource cancellationSource =
+                CancellationTokenSource.CreateLinkedTokenSource(hostCancellationToken, req.HttpContext.RequestAborted);
 
-            var apiKey = Environment.GetEnvironmentVariable("ApiKey");
-            var response = await httpClient.GetAsync($"https://api.nasa.gov/planetary/apod?api_key={apiKey}&hd=true&date={GetRandomDate()}");
-            var result = await response.Content.ReadAsStringAsync();
-            return new OkObjectResult(JsonConvert.DeserializeObject(result));
+            var image = await _repository.GetAsync(i => i.Date == GetRandomDate(), cancellationSource.Token);
+
+            return new OkObjectResult(image);
         }
 
-        private static string GetRandomDate()
+        private static DateTime GetRandomDate()
         {
             var random = new Random();
             var startDate = new DateTime(1995, 06, 16);
-            var range = (DateTime.Today - startDate).Days;
-            return startDate.AddDays(random.Next(range)).ToString("yyyy-MM-dd");
+            var range = (new DateTime(2004, 07, 01) - startDate).Days;
+            return startDate.AddDays(random.Next(range));
         }
+    }
+
+    public class Image : Item
+    {
+        public string Title { get; set; }
+        public string Copyright { get; set; }
+        public DateTime Date { get; set; }
+        public string Explanation { get; set; }
+        public string Url { get; set; }
+        public string HdUrl { get; set; }
     }
 }
