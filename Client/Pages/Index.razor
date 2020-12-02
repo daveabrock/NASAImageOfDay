@@ -1,46 +1,23 @@
 ﻿
 @page "/"
-@inject HttpClient http
 
-    <Title Value="@GetPageTitle()"></Title>
-    @if (image != null)
-    {
-        <div class="p-4">
-            <h1 class="text-6xl">@image.Title</h1>
-            <p class="text-2xl">@FormatDate(image.Date)</p>
-            @if (image.Copyright != null)
-            {
-                <p>Copyright: @image.Copyright</p>
-            }
-        </div>
-
-        <div class="flex justify-center p-4">
-            <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
-        </div>
-    }
-
-    @code {
-        private Data.Image image;
-
-        private string FormatDate(DateTime date)
+@if (_image is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="p-4">
+        <h1 class="text-6xl">@_image.Title</h1>
+        <p class="text-2xl">@FormatDate(_image.Date)</p>
+        @if (_image.Copyright != null)
         {
-            return date.ToLongDateString();
+            <p>Copyright: @_image.Copyright</p>
         }
+    </div>
 
-        private int GetYear(DateTime date)
-        {
-            return date.Year;
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            image = await http.GetFromJsonAsync<Data.Image>("api/image");
-            System.Threading.Thread.Sleep(2000);
-        }
-
-        private string GetPageTitle()
-        {
-            return image is null ? "Blasting off..." : $"New! From {GetYear(image.Date)}!";
-        }
-    }
+    <div class="flex justify-center p-4">
+        <img src="@_image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
+    </div>
+}
 
