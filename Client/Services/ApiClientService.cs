@@ -4,12 +4,14 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Data;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Client.Services
 {
     public interface IApiClientService
     {
-        public Task<Image> GetImageOfDay();
+        public Task<IEnumerable<Image>> GetImageOfDay(int days);
     }
     public class ApiClientService : IApiClientService
     {
@@ -22,13 +24,14 @@ namespace Client.Services
             _logger = logger;
         }
 
-        public async Task<Image> GetImageOfDay()
+        public async Task<IEnumerable<Image>> GetImageOfDay(int days)
         {
             try
             {
                 var client = _clientFactory.CreateClient("imageofday");
-                var image = await client.GetFromJsonAsync<Image>("api/image");
-                return image;
+                var images = await client.GetFromJsonAsync
+                    <IEnumerable<Image>>($"api/image?days={days}");
+                return images.OrderByDescending(img => img.Date);
             }
             catch (Exception ex)
             {

@@ -1,23 +1,20 @@
 ﻿using Client.Services;
-using Data;
 using Microsoft.AspNetCore.Components;
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Client.Pages
 {
-    partial class Index : ComponentBase
+    partial class Images : ComponentBase
     {
-        Image _image;
+        IEnumerable<Data.Image> _images;
 
         [Inject]
         public IApiClientService ApiClientService { get; set; }
 
-        private static string FormatDate(DateTime date) => date.ToLongDateString();
-
         protected override async Task OnInitializedAsync()
         {
-            _image = await ApiClientService.GetImageOfDay();
+            _images = await ApiClientService.GetImageOfDay(days: 90);
         }
     }
 }
