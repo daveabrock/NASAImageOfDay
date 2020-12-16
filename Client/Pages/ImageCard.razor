@@ -1,0 +1,27 @@
+﻿<div class="m-6 rounded overflow-hidden shadow-lg">
+        <img class="w-full h-48 object-cover" src="@ImageDetails.Url" alt="@ImageDetails.Title" />
+        <div class="p-6">
+            <div class="flex items-baseline">
+                @if (ImageDetails.IsNew)
+                {
+                    <div class="flex items-baseline">
+                        <span class="inline-block bg-teal-200 text-teal-800 text-xs px-2 rounded-full
+                      uppercase font-semibold tracking-wide">New</span>
+                        <div class="ml-2 text-gray-600 text-md-left uppercase font-semibold tracking-wide">
+                            @ImageDetails.Date.ToLongDateString()
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-gray-600 text-md-left uppercase font-semibold tracking-wide">
+                        @ImageDetails.Date.ToLongDateString()
+                    </div>
+                }
+
+            </div>
+            <h3 class="mt-1 font-semibold text-2xl leading-tight truncate">@ImageDetails.Title</h3>
+        </div>
+</div>
+
+

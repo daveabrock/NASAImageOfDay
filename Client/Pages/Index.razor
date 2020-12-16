@@ -1,46 +1,23 @@
-﻿
-@page "/"
-@inject HttpClient http
+﻿@page "/"
+@inject NavigationManager Navigator
 
-    <Title Value="@GetPageTitle()"></Title>
-    @if (image != null)
-    {
-        <div class="p-4">
-            <h1 class="text-6xl">@image.Title</h1>
-            <p class="text-2xl">@FormatDate(image.Date)</p>
-            @if (image.Copyright != null)
-            {
-                <p>Copyright: @image.Copyright</p>
-            }
-        </div>
+<div class="flex justify-center">
+    <div class="max-w-2xl rounded overflow-hidden shadow-lg m-12">
+        <h1 class="text-5xl m-6">Welcome to Blast Off with Blazor</h1>
+        <img class="w-full" src="images/armstrong.jpg" />
 
-        <div class="flex justify-center p-4">
-            <img src="@image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
-        </div>
-    }
+        <p class="text-3xl m-4">
+            This is a project to sample various Blazor features and functionality.
 
-    @code {
-        private Data.Image image;
+            We'll have more soon!
+        </p>
+        <button class="text-center m-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                @onclick="ToImagePage">
+            🚀 Astronomy Pic of the Day (APOD) Images
+        </button>
+    </div>
+</div>
 
-        private string FormatDate(DateTime date)
-        {
-            return date.ToLongDateString();
-        }
-
-        private int GetYear(DateTime date)
-        {
-            return date.Year;
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            image = await http.GetFromJsonAsync<Data.Image>("api/image");
-            System.Threading.Thread.Sleep(2000);
-        }
-
-        private string GetPageTitle()
-        {
-            return image is null ? "Blasting off..." : $"New! From {GetYear(image.Date)}!";
-        }
-    }
-
+@code {
+    void ToImagePage() => Navigator.NavigateTo("/images");
+} 

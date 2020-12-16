@@ -1,0 +1,23 @@
+﻿@page "/images"
+
+@if (_images is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h1 class="text-6xl m-6">Astronomy Picture of the Day</h1>
+    <p class="m-6 text-3xl">This site lists the NASA Astronomy Picture of the Day, which has been
+        publishing daily since June 16, 1995! Right now, we grab data from the last
+        60 days but soon we'll use virtualization for "infinite scroll,"
+        allow filtering and querying, and have a dialog to view images in
+        full size.
+    </p>
+    <div class="p-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        @foreach (var image in _images)
+        {
+            <ImageCard ImageDetails="image" />
+        }
+    </div>
+}
+
