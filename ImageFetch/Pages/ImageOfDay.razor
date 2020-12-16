@@ -1,0 +1,22 @@
+﻿@page "/image"
+
+@if (_image is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="p-4">
+        <h1 class="text-6xl">@_image.Title</h1>
+        <p class="text-2xl">@FormatDate(_image.Date)</p>
+        @if (_image.Copyright != null)
+        {
+            <p>Copyright: @_image.Copyright</p>
+        }
+    </div>
+
+    <div class="flex justify-center p-4">
+        <img src="@_image.Url" class="rounded-lg h-500 w-500 flex items-center justify-center"><br />
+    </div>
+}
+

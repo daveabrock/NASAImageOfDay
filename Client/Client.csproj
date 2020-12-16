@@ -6,11 +6,6 @@
 
   <ItemGroup>
     <Content Remove="package-lock.json" />
-    <Content Remove="package.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="gulpfile.js" />
   </ItemGroup>
 
   <ItemGroup>
