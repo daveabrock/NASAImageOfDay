@@ -11,7 +11,7 @@ namespace Client.Services
 {
     public interface IApiClientService
     {
-        public Task<IEnumerable<Image>> GetImageOfDay(int days);
+        public Task<IEnumerable<Image>> GetImages(int days);
     }
     public class ApiClientService : IApiClientService
     {
@@ -24,7 +24,7 @@ namespace Client.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Image>> GetImageOfDay(int days)
+        public async Task<IEnumerable<Image>> GetImages(int days)
         {
             try
             {

@@ -14,7 +14,7 @@ namespace Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            _images = await ApiClientService.GetImageOfDay(days: 90);
+            _images = await ApiClientService.GetImages(days: 90);
         }
     }
 }
