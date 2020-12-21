@@ -38,7 +38,6 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
