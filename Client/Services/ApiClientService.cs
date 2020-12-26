@@ -12,6 +12,7 @@ namespace Client.Services
     public interface IApiClientService
     {
         public Task<IEnumerable<Image>> GetImages(int days);
+        public Task<IEnumerable<Image>> SearchImages(string searchText);
     }
     public class ApiClientService : IApiClientService
     {
@@ -31,6 +32,23 @@ namespace Client.Services
                 var client = _clientFactory.CreateClient("imageofday");
                 var images = await client.GetFromJsonAsync
                     <IEnumerable<Image>>($"api/image?days={days}");
+                return images.OrderByDescending(img => img.Date);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<Image>> SearchImages(string searchText)
+        {
+            try
+            {
+                var client = _clientFactory.CreateClient("imageofday");
+                var images = await client.GetFromJsonAsync
+                    <IEnumerable<Image>>($"api/search?title={searchText}");
                 return images.OrderByDescending(img => img.Date);
             }
             catch (Exception ex)

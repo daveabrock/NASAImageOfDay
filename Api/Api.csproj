@@ -11,6 +11,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
+  <Target Name="RunFunctions">
+    <Exec Command="func start" />
+  </Target>
   <ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

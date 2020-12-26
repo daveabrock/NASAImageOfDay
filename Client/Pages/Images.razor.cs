@@ -7,14 +7,21 @@ namespace Client.Pages
 {
     partial class Images : ComponentBase
     {
-        IEnumerable<Data.Image> _images;
+        protected string _searchText;
 
+        public IEnumerable<Data.Image> ImageList { get; set; } = new List<Data.Image>();
+        
         [Inject]
         public IApiClientService ApiClientService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            _images = await ApiClientService.GetImages(days: 60);
+            ImageList = await ApiClientService.GetImages(days: 70);
+        }
+
+        protected async Task HandleSearch()
+        {
+            ImageList = await ApiClientService.SearchImages(_searchText);
         }
     }
 }

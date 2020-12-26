@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.CosmosRepository;
 using Data;
-using System.Transactions;
 using System.Collections.Generic;
 
 namespace Api
@@ -37,12 +36,20 @@ namespace Api
             return new OkObjectResult(imageResponse.Result);
         }
 
-        private static DateTime GetRandomDate()
+        [FunctionName("ImageSearch")]
+        public IActionResult Search(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "search")] HttpRequest req,
+            ILogger log)
         {
-            var random = new Random();
-            var startDate = new DateTime(1995, 06, 16);
-            var range = (DateTime.Today - startDate).Days;
-            return startDate.AddDays(random.Next(range));
+
+            var title = req.Query["title"];
+            log.LogInformation($"Requested image containing title: {title}.");
+
+            ValueTask<IEnumerable<Image>> imageResponse;
+            imageResponse = _imageRepository.GetAsync
+                 (img => img.Title.Contains(title, StringComparison.InvariantCultureIgnoreCase));
+
+            return new OkObjectResult(imageResponse.Result);
         }
     }
 }
