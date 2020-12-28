@@ -1,0 +1,23 @@
+﻿@page "/"
+@inject NavigationManager Navigator
+
+<div class="flex justify-center">
+    <div class="max-w-2xl rounded overflow-hidden shadow-lg m-12">
+        <h1 class="text-3xl m-6">Welcome to Blast Off with Blazor</h1>
+        <img class="w-full h-48 object-cover object-center" src="images/floating-astronaut.jpg" />
+
+        <p class="text-2xl m-4">
+            This is a project to sample various Blazor features and functionality.
+
+            We'll have more soon!
+        </p>
+        <button class="text-center m-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                @onclick="ToImagePage">
+            🚀 Astronomy Pic of the Day (APOD) Images
+        </button>
+    </div>
+</div>
+
+@code {
+    void ToImagePage() => Navigator.NavigateTo("/images");
+} 
