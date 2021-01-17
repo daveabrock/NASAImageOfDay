@@ -8,19 +8,21 @@
                     <span class="inline-block bg-red-200 text-red-800 text-xs px-2 rounded-full
                       uppercase font-semibold tracking-wide">New</span>
                     <div class="ml-2 text-gray-600 text-md-left uppercase font-semibold tracking-wide">
-                        @ImageDetails.Date.ToString("MMMM dd, yyyy")
+                        @ImageDetails.PrettyDate
                     </div>
                 </div>
             }
             else
             {
                 <div class="text-gray-600 text-md-left uppercase font-semibold tracking-wide">
-                    @ImageDetails.Date.ToLongDateString()
+                    @ImageDetails.PrettyDate
                 </div>
             }
 
         </div>
-        <h3 class="mt-1 font-semibold text-2xl leading-tight truncate">@ImageDetails.Title</h3>
+        <h3 class="mt-1 font-semibold text-2xl leading-tight truncate">
+            <a href="@ImageDetails.Url" target="_blank">@ImageDetails.Title</a>
+        </h3>
     </div>
 </div>
 

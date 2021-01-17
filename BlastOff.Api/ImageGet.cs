@@ -1,13 +1,13 @@
-using System;
-using System.Threading.Tasks;
+using BlastOff.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.CosmosRepository;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.CosmosRepository;
-using BlastOff.Shared;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlastOff.Api
 {
@@ -32,22 +32,6 @@ namespace BlastOff.Api
             ValueTask<IEnumerable<Image>> imageResponse;
             imageResponse = _imageRepository.GetAsync
                  (img => img.Date > DateTime.Now.AddDays(-days));
-
-            return new OkObjectResult(imageResponse.Result);
-        }
-
-        [FunctionName("ImageSearch")]
-        public IActionResult Search(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "search")] HttpRequest req,
-            ILogger log)
-        {
-
-            var title = req.Query["title"];
-            log.LogInformation($"Requested image containing title: {title}.");
-
-            ValueTask<IEnumerable<Image>> imageResponse;
-            imageResponse = _imageRepository.GetAsync
-                 (img => img.Title.Contains(title, StringComparison.InvariantCultureIgnoreCase));
 
             return new OkObjectResult(imageResponse.Result);
         }

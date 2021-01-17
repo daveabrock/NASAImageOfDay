@@ -21,5 +21,6 @@ namespace BlastOff.Shared
         [JsonProperty("url")]
         public string Url { get; set; }
         public bool IsNew => Date > DateTime.Today.AddDays(-3);
+        public string PrettyDate => Date.ToString("MMMM dd, yyyy");
     }
 }

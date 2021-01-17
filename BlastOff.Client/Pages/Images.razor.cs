@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlastOff.Shared;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using BlastOff.Shared;
 
 namespace BlastOff.Client.Pages
 {
     partial class Images : ComponentBase
     {
-        protected string _searchText;
-
         public IEnumerable<Image> ImageList { get; set; } = new List<Image>();
-        
+
+        public string SearchText = "";
+
         [Inject]
         public IImageService ImageService { get; set; }
 
@@ -19,9 +20,7 @@ namespace BlastOff.Client.Pages
             ImageList = await ImageService.GetImages(days: 70);
         }
 
-        protected async Task HandleSearch()
-        {
-            ImageList = await ImageService.SearchImages(_searchText);
-        }
+        List<Image> FilteredImages => ImageList.Where(
+            img => img.Title.ToLower().Contains(SearchText.ToLower())).ToList();
     }
 }

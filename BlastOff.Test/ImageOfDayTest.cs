@@ -5,6 +5,7 @@
 //using Microsoft.Extensions.DependencyInjection;
 //using System;
 //using Data;
+//using BlastOff.Shared;
 
 //namespace Test
 //{
@@ -19,7 +20,7 @@
 //            using var ctx = new TestContext();
 //            ctx.Services.AddSingleton(mockClient.Object);
 
-//            IRenderedComponent<Client.Pages.Image> cut = ctx.RenderComponent<Client.Pages.Image>();
+//            var cut = ctx.RenderComponent<BlastOff.Client.Pages.Image>();
 //            var h1Element = cut.Find("h1").TextContent;
 //            var imgElement = cut.Find("img");
 //            var pElement = cut.Find("p");
