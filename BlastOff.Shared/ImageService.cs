@@ -15,8 +15,8 @@ namespace BlastOff.Shared
 
     public class ImageService : IImageService
     {
-        readonly IHttpClientFactory _clientFactory;
-        readonly ILogger<ImageService> _logger;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly ILogger<ImageService> _logger;
 
         public ImageService(ILogger<ImageService> logger, IHttpClientFactory clientFactory)
         {

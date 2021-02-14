@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlastOff.Client.Pages
 {
-    partial class Images : ComponentBase
+    partial class Index : ComponentBase
     {
         public IEnumerable<Image> ImageList { get; set; } = new List<Image>();
 
@@ -20,7 +20,7 @@ namespace BlastOff.Client.Pages
             ImageList = await ImageService.GetImages(days: 70);
         }
 
-        List<Image> FilteredImages => ImageList.Where(
+        private IEnumerable<Image> FilteredImages => ImageList.Where(
             img => img.Title.ToLower().Contains(SearchText.ToLower())).ToList();
     }
 }

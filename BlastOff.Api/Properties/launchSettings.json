@@ -1,9 +1,8 @@
-
 {
-    "profiles": {
-        "Api": {
-            "commandName": "Project",
-            "commandLineArgs": "start --cors *"
-        }
+  "profiles": {
+    "Api": {
+      "commandName": "Project",
+      "commandLineArgs": "start --cors *"
     }
+  }
 }
