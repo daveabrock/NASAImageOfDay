@@ -16,7 +16,7 @@ namespace BlastOff.Client
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddHttpClient("imageofday", iod =>
             {
-                iod.BaseAddress = new Uri("http://localhost:7071" ?? builder.HostEnvironment.BaseAddress);
+                iod.BaseAddress = new Uri(builder.Configuration["API_Prefix"] ?? builder.HostEnvironment.BaseAddress);
             });
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddMudServices();
