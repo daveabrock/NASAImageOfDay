@@ -17,7 +17,7 @@ namespace BlastOff.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            ImageList = await ImageService.GetImages(days: 365);
+            ImageList = await ImageService.GetImages(days: 100);
         }
 
         private IEnumerable<Image> FilteredImages => ImageList.Where(
