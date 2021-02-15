@@ -1,8 +1,6 @@
 ﻿@inject IDialogService DialogService
-
-<div class="m-6 rounded overflow-hidden shadow-lg"
+<div class="image-container m-6 rounded overflow-hidden shadow-lg"
      @onclick="OpenDialog">
-
 
     <img class="w-full h-48 object-cover" src="@ImageDetails.Url" alt="@ImageDetails.Title" />
     <div class="p-6">
@@ -26,7 +24,7 @@
 
         </div>
         <h3 class="mt-1 font-semibold text-2xl leading-tight truncate">
-            <a href="@ImageDetails.Url" target="_blank">@ImageDetails.Title</a>
+            @ImageDetails.Title
         </h3>
     </div>
 </div>
@@ -38,8 +36,7 @@
 
     private void OpenDialog()
     {
-        var parameters = new DialogParameters();
-        parameters.Add("ImageDetails", ImageDetails);
+        var parameters = new DialogParameters {{"ImageDetails", ImageDetails}};
         DialogService.Show<ImageDialog>(ImageDetails.Title, parameters);
     }
 }
