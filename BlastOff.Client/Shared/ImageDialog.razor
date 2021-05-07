@@ -1,0 +1,33 @@
+﻿<MudDialog>
+
+    <DialogContent>
+        <MudContainer Style="max-height: 500px; overflow-y: scroll">
+            <div class="text-gray-600 text-md-left font-semibold tracking-wide">
+                @ImageDetails.PrettyDate
+            </div>
+            <div class="text-xs p-4">
+                @ImageDetails.Explanation
+            </div>
+            <div class="p-4">
+                <a href="@ImageDetails.Url" target="_blank">See high-quality image <i class="fa fa-external-link" aria-hidden="true"></i></a>
+            </div>
+
+
+            <img src="@ImageDetails.Url" />
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public Image ImageDetails { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}
+

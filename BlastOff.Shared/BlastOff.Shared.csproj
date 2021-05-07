@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IEvangelist.Azure.CosmosRepository" Version="2.1.3" />
+    <Content Remove="C:\Users\davea\.nuget\packages\ievangelist.azure.cosmosrepository\2.1.4\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IEvangelist.Azure.CosmosRepository" Version="2.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />

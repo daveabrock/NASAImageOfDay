@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using BlastOff.Client.Shared;
 using Bunit;
-using BlastOff.Client.Shared;
+using Xunit;
 
 namespace Test
 {

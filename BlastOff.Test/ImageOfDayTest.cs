@@ -5,6 +5,7 @@
 //using Microsoft.Extensions.DependencyInjection;
 //using System;
 //using Data;
+//using BlastOff.Shared;
 
 //namespace Test
 //{
@@ -19,13 +20,13 @@
 //            using var ctx = new TestContext();
 //            ctx.Services.AddSingleton(mockClient.Object);
 
-//            IRenderedComponent<Client.Pages.Image> cut = ctx.RenderComponent<Client.Pages.Image>();
+//            var cut = ctx.RenderComponent<BlastOff.Client.Pages.Image>();
 //            var h1Element = cut.Find("h1").TextContent;
 //            var imgElement = cut.Find("img");
 //            var pElement = cut.Find("p");
 
 //            h1Element.MarkupMatches("My Sample Image");
-//            imgElement.MarkupMatches(@"<img src=""https://nasa.gov"" 
+//            imgElement.MarkupMatches(@"<img src=""https://nasa.gov""
 //                class=""rounded-lg h-500 w-500 flex items-center justify-center"">");
 //            pElement.MarkupMatches(@"<p class=""text-2xl"">Wednesday, January 1, 2020</p>");
 //        }
