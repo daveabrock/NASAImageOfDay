@@ -27,7 +27,7 @@ namespace BlastOff.Api
                 return new BadRequestResult();
 
             var imageResponse = await _imageRepository.GetAsync
-                 (img => img.Date > DateTime.Now.AddDays(-days));
+                (img => img.Date > DateTime.Now.AddDays(-days));
 
             return new OkObjectResult(imageResponse);
         }
