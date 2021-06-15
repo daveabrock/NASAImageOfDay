@@ -2,7 +2,7 @@
 using Bunit;
 using Xunit;
 
-namespace Test
+namespace BlastOff.Test
 {
     public class NotFoundTest
     {
