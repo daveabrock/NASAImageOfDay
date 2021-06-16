@@ -16,7 +16,7 @@ namespace BlastOff.Api
         public ImageGet(IRepository<Image> imageRepository) => _imageRepository = imageRepository;
 
         [FunctionName("ImageGet")]
-        public IActionResult Run(
+        public async ValueTask<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "image")] HttpRequest req,
             ILogger log)
         {
@@ -26,10 +26,10 @@ namespace BlastOff.Api
             if (!hasDays && days > 90)
                 return new BadRequestResult();
 
-            var imageResponse = _imageRepository.GetAsync
+            var imageResponse = await _imageRepository.GetAsync
                 (img => img.Date > DateTime.Now.AddDays(-days));
 
-            return new OkObjectResult(imageResponse.Result);
+            return new OkObjectResult(imageResponse);
         }
     }
 }
