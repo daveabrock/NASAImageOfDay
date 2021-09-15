@@ -6,6 +6,7 @@
     <PackageReference Include="IEvangelist.Azure.CosmosRepository" Version="2.1.4" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
+    <PackageReference Include="System.Text.Json" Version="6.0.0-preview.6.21352.12" />
   </ItemGroup>
   <Target Name="RunFunctions">
     <Exec Command="func start cors -- *" />

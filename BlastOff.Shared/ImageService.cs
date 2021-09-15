@@ -31,6 +31,7 @@ namespace BlastOff.Shared
                 var client = _clientFactory.CreateClient("imageofday");
                 var images = await client.GetFromJsonAsync
                     <IEnumerable<Image>>($"api/image?days={days}");
+
                 return images.OrderByDescending(img => img.Date);
             }
             catch (Exception ex)

@@ -17,7 +17,6 @@
         </MudContainer>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
         <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
     </DialogActions>
 </MudDialog>
@@ -27,7 +26,6 @@
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
     [Parameter] public Image ImageDetails { get; set; }
 
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
-    void Cancel() => MudDialog.Cancel();
+    void Submit() => Console.WriteLine("Something absolutely terrible happened!");
 }
 
